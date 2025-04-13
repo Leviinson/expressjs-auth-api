@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "dev": "DEBUG='express.js*' ts-node-dev src/bin/www.ts",
-        "test": "./node_modules/.bin/jest"
+        "test": "npx jest"
     },
     "dependencies": {
         "bcrypt": "^5.1.1",

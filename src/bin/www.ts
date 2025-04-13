@@ -9,7 +9,7 @@ import debug from "debug";
 import http from "http";
 import dotenv from "dotenv";
 import path from "path";
-import sequelize from "../db/models";
+import sequelize from "../db/models/index";
 
 dotenv.config();
 const debugLogger = debug("express.js:server");

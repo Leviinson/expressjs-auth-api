@@ -1,4 +1,4 @@
-import sequelize from ".";
+import sequelize from "./index";
 import bcrypt from "bcrypt";
 import { DataTypes, Model, Optional } from "sequelize";
 

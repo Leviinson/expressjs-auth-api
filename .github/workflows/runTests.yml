@@ -41,7 +41,7 @@ jobs:
               run: pnpm install
 
             - name: 🚀 Run tests
-              run: pnpm jest
+              run: pnpm test
               env:
                   SECRET_KEY: some_secret_key
                   PORT: 3000

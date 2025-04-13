@@ -61,5 +61,6 @@ jobs:
                   PORT: 3000
                   TEST_DB_NAME: express_database_test
                   TEST_DB_USER: root
+                  TEST_DB_PASSWORD: root
                   TEST_DB_HOST: localhost
                   TEST_DB_PORT: 3306

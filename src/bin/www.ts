@@ -1,16 +1,10 @@
 #!/usr/bin/env node
-
-/**
- * Module dependencies.
- */
-
 import http from "http";
-import path from "path";
 
 import debug from "debug";
 
 import app from "../app";
-import sequelize from "../db/models/index";
+import { connectToDb } from "../db/cursor";
 
 const debugLogger = debug("express.js:server");
 
@@ -18,25 +12,17 @@ const port: number | string | boolean = normalizePort(
     process.env.PORT || "3000"
 );
 app.set("port", port);
-app.set("view engine", "pug");
-app.set("views", path.join(__dirname, "../views"));
 
 const server = http.createServer(app);
-
-sequelize
-    .authenticate()
+connectToDb()
     .then(() => {
-        debugLogger("Успешно выполнено подключение к базе данных.");
+        debugLogger("Successfull connection to the DB");
+        server.listen(port);
     })
     .catch((err) => {
-        debugLogger("Невозможно подключиться к базе данных:", err);
+        debugLogger("It isn't possible to connect to the DB:", err);
     });
 
-/**
- * Listen on provided port, on all network interfaces.
- */
-
-server.listen(port);
 server.on("error", onError);
 server.on("listening", onListening);
 

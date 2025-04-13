@@ -1,20 +1,26 @@
+import path from "path";
+
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import express, { Request, Response, NextFunction } from "express";
 import createError from "http-errors";
 import logger from "morgan";
 
+import jwtAuth from "./controllers/auth/middlewares/jwtAuth";
 import authRouter from "./routes/auth";
 import userRouter from "./routes/user";
 
 dotenv.config();
-
 const app = express();
+
+app.set("view engine", "pug");
+app.set("views", path.join(__dirname, "./views"));
 
 // To connect middlewares
 app.use(logger("dev"));
 app.use(express.json());
 app.use(cookieParser(process.env.SECRET_KEY));
+app.use(jwtAuth);
 
 // To connect routers
 app.use("/", userRouter);

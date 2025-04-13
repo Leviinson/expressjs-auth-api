@@ -3,7 +3,8 @@
     "version": "0.0.0",
     "private": true,
     "scripts": {
-        "dev": "DEBUG='express.js*' ts-node-dev src/bin/www.ts"
+        "dev": "DEBUG='express.js*' ts-node-dev src/bin/www.ts",
+        "test": "jest"
     },
     "dependencies": {
         "bcrypt": "^5.1.1",

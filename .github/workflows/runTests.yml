@@ -38,10 +38,10 @@ jobs:
                   cache: "pnpm"
 
             - name: 📦 Install dependencies
-              run: pnpm install
+              run: npm install
 
             - name: 🚀 Run tests
-              run: pnpm test
+              run: npm test
               env:
                   SECRET_KEY: some_secret_key
                   PORT: 3000

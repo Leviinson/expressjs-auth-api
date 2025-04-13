@@ -5,7 +5,7 @@ function userProfileController(
     res: Response,
     next: NextFunction
 ) {
-    let accessToken: string | undefined = req.signedCookies.access_token;
+    const accessToken: string | undefined = req.signedCookies.access_token;
     if (accessToken) {
         console.log(accessToken);
     } else {

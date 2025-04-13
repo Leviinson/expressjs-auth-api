@@ -1,9 +1,13 @@
+import cookieParser from "cookie-parser";
+import dotenv from "dotenv";
 import express, { Request, Response, NextFunction } from "express";
 import createError from "http-errors";
-import cookieParser from "cookie-parser";
 import logger from "morgan";
-import userRouter from "./routes/user";
+
 import authRouter from "./routes/auth";
+import userRouter from "./routes/user";
+
+dotenv.config();
 
 const app = express();
 

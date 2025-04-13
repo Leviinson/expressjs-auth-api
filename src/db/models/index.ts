@@ -1,4 +1,5 @@
 import { Sequelize } from "sequelize";
+
 import dbConfig from "../config";
 
 type Mode = "development" | "test" | "production";

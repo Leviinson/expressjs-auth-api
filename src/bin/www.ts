@@ -4,29 +4,22 @@
  * Module dependencies.
  */
 
-import app from "../app";
-import debug from "debug";
 import http from "http";
-import dotenv from "dotenv";
 import path from "path";
+
+import debug from "debug";
+
+import app from "../app";
 import sequelize from "../db/models/index";
 
-dotenv.config();
 const debugLogger = debug("express.js:server");
 
-/**
- * Get port from environment and store in Express.
- */
 const port: number | string | boolean = normalizePort(
     process.env.PORT || "3000"
 );
 app.set("port", port);
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "../views"));
-
-/**
- * Create HTTP server.
- */
 
 const server = http.createServer(app);
 
@@ -47,10 +40,6 @@ server.listen(port);
 server.on("error", onError);
 server.on("listening", onListening);
 
-/**
- * Normalize a port into a number, string, or false.
- */
-
 function normalizePort(val: string): number | string | false {
     const port = parseInt(val, 10);
 
@@ -67,10 +56,6 @@ function normalizePort(val: string): number | string | false {
     return false;
 }
 
-/**
- * Event listener for HTTP server "error" event.
- */
-
 function onError(error: NodeJS.ErrnoException): void {
     if (error.syscall !== "listen") {
         throw error;
@@ -78,7 +63,6 @@ function onError(error: NodeJS.ErrnoException): void {
 
     const bind = typeof port === "string" ? "Pipe " + port : "Port " + port;
 
-    // handle specific listen errors with friendly messages
     switch (error.code) {
         case "EACCES":
             console.error(bind + " requires elevated privileges");
@@ -92,10 +76,6 @@ function onError(error: NodeJS.ErrnoException): void {
             throw error;
     }
 }
-
-/**
- * Event listener for HTTP server "listening" event.
- */
 
 function onListening(): void {
     const addr = server.address();

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
 
-function signInController(req: Request, res: Response): undefined {}
+function signInController(_req: Request, _res: Response): undefined {}
 
 export default signInController;

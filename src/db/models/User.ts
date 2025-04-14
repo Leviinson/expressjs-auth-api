@@ -34,10 +34,21 @@ class User
     public createdAt!: Date;
     public updatedAt!: Date;
     public deletedAt!: Date | null;
+
+    get isAuthenticated() {
+        return true;
+    }
 }
 
 User.init(
     {
+        id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
+            allowNull: false,
+            comment: "ID пользователя",
+        },
         username: {
             type: DataTypes.STRING(50),
             allowNull: false,

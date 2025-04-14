@@ -1,9 +1,9 @@
-import sequelize from "./models/index";
+import sequelize from "./models/init";
 
 export async function connectToDb() {
     await sequelize.authenticate();
 }
 
 export async function closeDb() {
-    await sequelize.close()
+    await sequelize.close();
 }

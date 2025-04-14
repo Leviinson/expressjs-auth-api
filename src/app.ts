@@ -6,7 +6,6 @@ import express, { Request, Response, NextFunction } from "express";
 import createError from "http-errors";
 import logger from "morgan";
 
-import jwtAuth from "./controllers/auth/middlewares/jwtAuth";
 import authRouter from "./routes/auth";
 import userRouter from "./routes/user";
 
@@ -20,7 +19,6 @@ app.set("views", path.join(__dirname, "./views"));
 app.use(logger("dev"));
 app.use(express.json());
 app.use(cookieParser(process.env.SECRET_KEY));
-app.use(jwtAuth);
 
 // To connect routers
 app.use("/", userRouter);
@@ -34,7 +32,7 @@ app.use(function (
     err: { message: string; status: number },
     req: Request,
     res: Response,
-    next: NextFunction
+    _next: NextFunction
 ) {
     // set locals, only providing error in development
     res.locals.message = err.message;

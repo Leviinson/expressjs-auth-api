@@ -1,15 +1,21 @@
-import { Router } from "express";
+import { Route } from "express";
+import { body } from "express-validator";
 
-import activateUserController from "../controllers/auth/activateUser";
-import refreshJWToken from "../controllers/auth/refreshToken";
-import signInController from "../controllers/auth/signIn";
-import signUpController from "../controllers/auth/signUp";
+import activateUserController from "@/controllers/auth/activateUser";
+import refreshJWToken from "@/controllers/auth/refreshToken";
+import signInController from "@/controllers/auth/signIn";
+import signUpController from "@/controllers/auth/signUp";
 
-const authRouter = Router();
+const authRoute = Route();
 
-authRouter.post("/signin", signInController);
-authRouter.post("/signup", signUpController);
-authRouter.post("/activate", activateUserController);
-authRouter.post("/refreshToken", refreshJWToken);
+authRoute.post(
+    "/signin",
+    body("username").isString().notEmpty().isLength({ min: 5, max: 50 }),
+    body("password").isString().isLength({ min: 10 }),
+    signInController
+);
+authRoute.post("/signup", signUpController);
+authRoute.post("/activate", activateUserController);
+authRoute.post("/refreshToken", refreshJWToken);
 
-export default authRouter;
+export default authRoute;

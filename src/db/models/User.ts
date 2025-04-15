@@ -18,7 +18,12 @@ interface UserAttributes {
 interface UserCreationAttributes
     extends Optional<
         UserAttributes,
-        "id" | "createdAt" | "updatedAt" | "deletedAt"
+        | "id"
+        | "createdAt"
+        | "updatedAt"
+        | "deletedAt"
+        | "lastLogin"
+        | "isActive"
     > {}
 
 class User
@@ -106,6 +111,7 @@ User.init(
     }
 );
 
+export { UserAttributes, UserCreationAttributes };
 export default User;
 
 // const User = sequelize.define(

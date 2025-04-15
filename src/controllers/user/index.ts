@@ -1,11 +1,9 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 
-function userProfileController(
-    _req: Request,
-    res: Response,
-    _next: NextFunction
-) {
-    res.render("index", { title: "Express" });
+import serializeUserProfile from "./serializers/serializeUserProfile";
+
+function userProfileController(_req: Request, res: Response) {
+    res.json(serializeUserProfile(res.locals.user));
 }
 
 export { userProfileController };

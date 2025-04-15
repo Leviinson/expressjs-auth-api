@@ -1,4 +1,4 @@
-import { connectToDb, closeDb } from "../src/db/cursor";
+import { connectToDb, closeDb } from "@/db/cursor";
 
 beforeAll(async () => {
     await connectToDb();

@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize";
 
-import dbConfig from "../config";
+import dbConfig from "@/src/db/config";
 
 type Mode = "development" | "test" | "production";
 const currentConfig = dbConfig[(process.env.NODE_ENV as Mode) || "development"];

@@ -1,5 +1,5 @@
-import hashPassword from "../../../services/auth/hashers";
-import User, { UserCreationAttributes } from "../User";
+import User, { UserCreationAttributes } from "@/src/db/models/User";
+import hashPassword from "@/src/services/auth/hashers";
 
 // type UpdateUserPasswordById = { id: number; user?: never };
 // type UpdateUserPasswordByUser = { user: User; id?: never };

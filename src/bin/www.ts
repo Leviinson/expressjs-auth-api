@@ -3,8 +3,8 @@ import http from "http";
 
 import debug from "debug";
 
-import app from "@/src/app";
-import { connectToDb } from "@/src/db/cursor";
+import app from "@/app";
+import { connectToDb } from "@/db/cursor";
 
 const debugLogger = debug("express.js:server");
 

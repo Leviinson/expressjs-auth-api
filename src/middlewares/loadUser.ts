@@ -2,6 +2,13 @@ import { Request, Response, NextFunction } from "express";
 
 import UserRepo from "../db/models/repos/user";
 
+/**
+ * This middleware assignes user
+ * to the response locals. It assumes, that previous
+ * middleware validated accessToken and assigned
+ * user ID from decoded token payload to the response
+ * locals.
+ */
 async function loadUser(
     _req: Request,
     res: Response,

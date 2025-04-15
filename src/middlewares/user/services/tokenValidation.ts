@@ -1,11 +1,11 @@
 import { IncomingHttpHeaders } from "http";
 
 import { Response } from "express";
-import jwt, { JwtPayload } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
-interface Payload extends JwtPayload {
+type Payload = {
     id: number;
-}
+};
 
 /**
  * This util validates passed accessToken
@@ -48,4 +48,5 @@ async function isTokenValid(
     return false;
 }
 
+export { Payload };
 export default isTokenValid;

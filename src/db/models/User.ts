@@ -1,5 +1,6 @@
-import bcrypt from "bcrypt";
 import { DataTypes, Model, Optional } from "sequelize";
+
+import { hashPassword } from "@/services/auth/hashers";
 
 import sequelize from "./init";
 
@@ -75,9 +76,6 @@ User.init(
         password: {
             type: DataTypes.STRING,
             allowNull: false,
-            validate: {
-                min: 10,
-            },
             comment: "Захешированный пароль",
         },
         isActive: {
@@ -94,11 +92,11 @@ User.init(
     {
         hooks: {
             beforeCreate: async (user) => {
-                user.password = await bcrypt.hash(user.password, 10);
+                user.password = hashPassword(user.password);
             },
             beforeUpdate: async (user) => {
                 if (user.changed("password")) {
-                    user.password = await bcrypt.hash(user.password, 10);
+                    user.password = hashPassword(user.password);
                 }
             },
         },

@@ -1,13 +1,13 @@
-import { Router } from "express";
+import { Route } from "express";
 
-import { userProfileController } from "../controllers/user";
-import loadUser from "../middlewares/loadUser";
-import requireAuth from "../middlewares/requireAuth";
+import { userProfileController } from "@/controllers/user";
+import loadUser from "@/middlewares/user/loadUser";
+import requireAuth from "@/middlewares/user/requireAuth";
 
-const userRouter = Router();
+const userRoute = Route();
 
-userRouter.use(requireAuth);
-userRouter.use(loadUser);
-userRouter.get("/", userProfileController);
+userRoute.use(requireAuth);
+userRoute.use(loadUser);
+userRoute.get("/", userProfileController);
 
-export default userRouter;
+export default userRoute;

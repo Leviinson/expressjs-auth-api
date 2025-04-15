@@ -1,5 +1,4 @@
-import User, { UserCreationAttributes } from "@/src/db/models/User";
-import hashPassword from "@/src/services/auth/hashers";
+import User, { UserCreationAttributes } from "@/db/models/User";
 
 // type UpdateUserPasswordById = { id: number; user?: never };
 // type UpdateUserPasswordByUser = { user: User; id?: never };
@@ -13,8 +12,14 @@ class UserRepo {
         return await User.findOne({ where: { id } });
     }
 
+    async getUserByUsername(username: string): Promise<User | null> {
+        return await User.findOne({
+            where: { username },
+            attributes: ["id", "username", "password"],
+        });
+    }
+
     async create(userParams: UserCreationAttributes): Promise<User> {
-        userParams.password = hashPassword(userParams.password);
         return await User.create({ ...userParams });
     }
 

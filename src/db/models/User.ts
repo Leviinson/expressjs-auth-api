@@ -75,6 +75,9 @@ User.init(
         password: {
             type: DataTypes.STRING,
             allowNull: false,
+            validate: {
+                min: 10,
+            },
             comment: "Захешированный пароль",
         },
         isActive: {

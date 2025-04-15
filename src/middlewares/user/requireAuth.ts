@@ -20,7 +20,7 @@ async function requireAuth(
         next();
     } else {
         res.status(401).json({
-            message: "Unauthorized or invalid credentials",
+            message: "Unauthorized or broken credentials",
         });
     }
 }

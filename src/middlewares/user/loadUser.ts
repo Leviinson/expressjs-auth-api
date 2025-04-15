@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 
-import UserRepo from "@/src/db/models/repos/user";
+import UserRepo from "@/db/models/repos/user";
 
 /**
  * This middleware assignes user

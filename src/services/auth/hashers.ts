@@ -20,8 +20,38 @@ function hashPassword(password: RawPassword): HashedPassword {
     const algorythm = "pbkdf2_sha256";
     const iterations = parseInt(process.env.PASSWORD_HASH_ITERATIONS!);
     const salt = randomBytes(16).toString("hex");
-    const hash = pbkdf2Sync(password, salt, iterations, 32, "sha256");
+    const hash = pbkdf2Sync(password, salt, iterations, 32, "sha256").toString(
+        "hex"
+    );
     return `${algorythm}$${iterations}$${salt}$${hash}`;
 }
 
-export default hashPassword;
+function checkPassword(
+    rawPassword: RawPassword,
+    hashedPassword: HashedPassword
+): boolean {
+    const [algorythm, iterationsStr, salt, storedHash] =
+        hashedPassword.split("$");
+
+    if (!algorythm || !iterationsStr || !salt || !storedHash) {
+        return false;
+    }
+
+    if (algorythm !== "pbkdf2_sha256") {
+        return false;
+    }
+
+    const iterations = parseInt(iterationsStr);
+
+    const computedHash = pbkdf2Sync(
+        rawPassword,
+        salt,
+        iterations,
+        32,
+        "sha256"
+    );
+
+    return storedHash === computedHash.toString("hex");
+}
+
+export { hashPassword, checkPassword };

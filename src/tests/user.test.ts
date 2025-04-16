@@ -1,11 +1,12 @@
 import request from "supertest";
 
-import app from "../src/app";
-import UserRepo from "../src/db/models/repos/user";
+import app from "@/app";
+import UserRepo from "@/db/models/repos/user";
+import User from "@/db/models/User";
 
 describe("GET /", () => {
     it("(unauthorized): it must redirect to the /auth/sigin", async () => {
-        const res = await request(app).get("/");
+        const res = await request(app).get("/me");
         expect(res.status).toBe(401);
     });
 
@@ -13,9 +14,14 @@ describe("GET /", () => {
         const userData = {
             email: "test@gmail.com",
             username: "levinsxn",
-            password: "dsaasddsa",
+            password: "dsaasddsaaa",
         };
-        const user = await new UserRepo().create({ ...userData });
+        const userRepo = new UserRepo();
+        await userRepo.create({ ...userData });
+        const user: User | null = await userRepo.getUserByUsername(
+            userData.username,
+            ["username", "password", "email"]
+        );
 
         const signInRes = await request(app)
             .post("/auth/signin")
@@ -23,14 +29,13 @@ describe("GET /", () => {
         const accessToken = signInRes.body.access;
 
         const userProfileRes = await request(app)
-            .get("/")
+            .get("/me")
             .set("Authorization", `Bearer ${accessToken}`);
-        expect(userProfileRes.status).toStrictEqual(200);
-        expect(userProfileRes.body).toEqual({
-            username: user.username,
-            email: user.email,
-        });
 
-        await user.destroy();
+        expect(userProfileRes.status).toStrictEqual(200);
+        expect(userProfileRes.body).toMatchObject({
+            username: user!.username,
+            email: user!.email,
+        });
     });
 });

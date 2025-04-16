@@ -11,6 +11,7 @@ async function authenticate(
     credentials: UserCredentials
 ): Promise<User | null> {
     const user = await new UserRepo().getUserByUsername(credentials.username, [
+        "id",
         "isActive",
         "password",
     ]);

@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
+import { validationResult } from "express-validator";
 import jwt from "jsonwebtoken";
 
-import { Payload } from "@/middlewares/user/services/tokenValidation";
+import { Payload } from "@/middlewares/auth/services/tokenValidation";
 import authenticate from "@/services/auth/authenticate";
 import login from "@/services/auth/login";
 
@@ -20,7 +21,7 @@ function issueJWTokens(userId: number): JWTokens {
     );
     const refreshToken = jwt.sign(
         payload,
-        process.env.ACCESS_TOKEN_SECRET_KEY!,
+        process.env.REFRESH_TOKEN_SECRET_KEY!,
         { expiresIn: "7d" }
     );
 
@@ -28,6 +29,11 @@ function issueJWTokens(userId: number): JWTokens {
 }
 
 async function signInController(req: Request, res: Response): Promise<void> {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        res.status(400).json({ errors: errors.array() });
+        return;
+    }
     const user = await authenticate({
         username: req.body.username,
         password: req.body.password,
@@ -35,7 +41,13 @@ async function signInController(req: Request, res: Response): Promise<void> {
 
     if (user) {
         await login(user);
-        res.status(200).json(issueJWTokens(user.id));
+        const { access, refresh } = issueJWTokens(user.id);
+        res.cookie("refresh", refresh, {
+            httpOnly: true,
+            signed: true,
+            secure: true,
+        });
+        res.status(200).json({ access: access });
     } else {
         res.status(401).json({ message: "Invalid credentials" });
     }

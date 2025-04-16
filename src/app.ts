@@ -6,8 +6,8 @@ import express, { Request, Response, NextFunction } from "express";
 import createError from "http-errors";
 import logger from "morgan";
 
-import authRoute from "./routes/auth";
-import userRoute from "./routes/user";
+import authRouter from "./routes/auth";
+import userRouter from "./routes/user";
 
 dotenv.config();
 const app = express();
@@ -21,8 +21,8 @@ app.use(express.json());
 app.use(cookieParser(process.env.SECRET_KEY));
 
 // To connect routers
-app.use("/me", userRoute);
-app.use("/auth", authRoute);
+app.use("/me", userRouter);
+app.use("/auth", authRouter);
 
 app.use(function (req: Request, res: Response, next: NextFunction) {
     next(createError(404));

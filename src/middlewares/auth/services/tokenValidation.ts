@@ -34,7 +34,7 @@ async function isTokenValid(
         try {
             const payload = jwt.verify(
                 givenAccessToken,
-                process.env.SECRET_KEY!
+                process.env.ACCESS_TOKEN_SECRET_KEY!
             ) as Payload;
             res.locals.userId = payload.id;
             return true;

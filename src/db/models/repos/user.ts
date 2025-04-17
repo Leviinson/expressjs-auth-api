@@ -8,10 +8,13 @@ import User, { UserAttributes, UserCreationAttributes } from "@/db/models/User";
 // ) & { password: string };
 
 class UserRepo {
-    async getUserById(id: number): Promise<User | null> {
+    async getUserById(
+        id: number,
+        attributes?: (keyof UserAttributes)[]
+    ): Promise<User | null> {
         return await User.findOne({
             where: { id },
-            attributes: ["id", "username", "email"],
+            attributes: attributes,
         });
     }
 

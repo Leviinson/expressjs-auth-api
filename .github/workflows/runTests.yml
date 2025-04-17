@@ -43,6 +43,9 @@ jobs:
               env:
                   SECRET_KEY: some_secret_key
                   PORT: 3000
+                  PASSWORD_HASH_ITERATIONS: 100
+                  ACCESS_TOKEN_SECRET_KEY: "ho1234^&*sa98234^&*8&^YSDaho"
+                  REFRESH_TOKEN_SECRET_KEY: "98234^&*8&^HBJKdsa98&^Saho1"
                   TEST_DB_NAME: express_database_test
                   TEST_DB_USER: root
                   TEST_DB_PASSWORD: root

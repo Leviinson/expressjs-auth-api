@@ -1,23 +1,14 @@
-# This is a basic workflow to help you get started with Actions
-
 name: CI
 
-# Controls when the workflow will run
 on:
-    # Triggers the workflow on push or pull request events but only for the "main" branch
     push:
         branches: ["main"]
     pull_request:
         branches: ["main"]
-
-    # Allows you to run this workflow manually from the Actions tab
     workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-    # This workflow contains a single job called "build"
     build:
-        # The type of runner that the job will run on
         runs-on: ubuntu-latest
 
         services:
@@ -34,9 +25,7 @@ jobs:
                     --health-timeout=5s
                     --health-retries=5
 
-        # Steps represent a sequence of tasks that will be executed as part of the job
         steps:
-            # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
             - name: 📥 Checkout repository
               uses: actions/checkout@v4
 
@@ -54,6 +43,9 @@ jobs:
               env:
                   SECRET_KEY: some_secret_key
                   PORT: 3000
+                  PASSWORD_HASH_ITERATIONS: 100
+                  ACCESS_TOKEN_SECRET_KEY: "ho1234^&*sa98234^&*8&^YSDaho"
+                  REFRESH_TOKEN_SECRET_KEY: "98234^&*8&^HBJKdsa98&^Saho1"
                   TEST_DB_NAME: express_database_test
                   TEST_DB_USER: root
                   TEST_DB_PASSWORD: root

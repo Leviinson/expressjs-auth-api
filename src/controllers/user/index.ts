@@ -1,22 +1,9 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 
-function userProfileController(
-    req: Request,
-    res: Response,
-    next: NextFunction
-) {
-    const accessToken: string | undefined = req.signedCookies.access_token;
-    if (accessToken) {
-        console.log(accessToken);
-    } else {
-        res.cookie("access_token", "asddsa", {
-            signed: true,
-            maxAge: 1000 * 5,
-            httpOnly: true,
-        });
-    }
+import serializeUserProfile from "./serializers/serializeUserProfile";
 
-    res.render("index", { title: "Express" });
+function userProfileController(_req: Request, res: Response) {
+    res.json(serializeUserProfile(res.locals.user));
 }
 
 export { userProfileController };

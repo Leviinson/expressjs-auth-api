@@ -7,11 +7,15 @@
     "esModuleInterop": true,
     "strict": true,
     "skipLibCheck": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    },
+    "baseUrl": "."
   },
   "include": [
-    "src/**/*.ts",
-    "src/db/models/index.ts",
-    "src/db/config.ts"
-  ],
+    "src/**/*.ts"
+  ]
 }

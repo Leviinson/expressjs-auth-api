@@ -1,3 +1,5 @@
+import path from "path";
+
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import express, { Request, Response, NextFunction } from "express";
@@ -8,8 +10,10 @@ import authRouter from "./routes/auth";
 import userRouter from "./routes/user";
 
 dotenv.config();
-
 const app = express();
+
+app.set("view engine", "pug");
+app.set("views", path.join(__dirname, "./views"));
 
 // To connect middlewares
 app.use(logger("dev"));
@@ -17,7 +21,7 @@ app.use(express.json());
 app.use(cookieParser(process.env.SECRET_KEY));
 
 // To connect routers
-app.use("/", userRouter);
+app.use("/me", userRouter);
 app.use("/auth", authRouter);
 
 app.use(function (req: Request, res: Response, next: NextFunction) {
@@ -28,7 +32,7 @@ app.use(function (
     err: { message: string; status: number },
     req: Request,
     res: Response,
-    next: NextFunction
+    _next: NextFunction
 ) {
     // set locals, only providing error in development
     res.locals.message = err.message;

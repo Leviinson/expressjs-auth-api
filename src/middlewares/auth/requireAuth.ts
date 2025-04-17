@@ -11,7 +11,7 @@ import isTokenValid from "./services/tokenValidation";
  * assignes 401 error (Unauthorized) to the response
  * status code.
  */
-async function requireAuth(
+async function requireAuthMiddleware(
     req: Request,
     res: Response,
     next: NextFunction
@@ -25,4 +25,4 @@ async function requireAuth(
     }
 }
 
-export default requireAuth;
+export default requireAuthMiddleware;

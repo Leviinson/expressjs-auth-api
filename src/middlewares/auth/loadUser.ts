@@ -9,7 +9,7 @@ import UserRepo from "@/db/models/repos/user";
  * user ID from decoded token payload to the response
  * locals.
  */
-async function loadUser(
+async function loadUserMiddleware(
     _req: Request,
     res: Response,
     next: NextFunction
@@ -24,4 +24,4 @@ async function loadUser(
     }
 }
 
-export default loadUser;
+export default loadUserMiddleware;

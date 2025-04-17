@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "dev": "DEBUG='express.js*' ts-node-dev --respawn --require tsconfig-paths/register src/bin/www.ts",
-        "test": "jest",
+        "test": "jest --detectOpenHandles",
         "lint": "eslint .",
         "lint:fix": "eslint . --fix --config eslint.config.ts"
     },

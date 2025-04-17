@@ -1,7 +1,8 @@
-import bcrypt from "bcrypt";
 import { DataTypes, Model, Optional } from "sequelize";
 
-import sequelize from "./index";
+import { hashPassword } from "@/services/auth/hashers";
+
+import sequelize from "./init";
 
 interface UserAttributes {
     id?: number;
@@ -18,7 +19,12 @@ interface UserAttributes {
 interface UserCreationAttributes
     extends Optional<
         UserAttributes,
-        "id" | "createdAt" | "updatedAt" | "deletedAt"
+        | "id"
+        | "createdAt"
+        | "updatedAt"
+        | "deletedAt"
+        | "lastLogin"
+        | "isActive"
     > {}
 
 class User
@@ -34,10 +40,21 @@ class User
     public createdAt!: Date;
     public updatedAt!: Date;
     public deletedAt!: Date | null;
+
+    get isAuthenticated() {
+        return true;
+    }
 }
 
 User.init(
     {
+        id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
+            allowNull: false,
+            comment: "ID пользователя",
+        },
         username: {
             type: DataTypes.STRING(50),
             allowNull: false,
@@ -63,7 +80,7 @@ User.init(
         },
         isActive: {
             type: DataTypes.BOOLEAN,
-            defaultValue: true,
+            defaultValue: false,
             comment: "Флаг активности пользователя (false = деактивирован)",
         },
         lastLogin: {
@@ -75,11 +92,11 @@ User.init(
     {
         hooks: {
             beforeCreate: async (user) => {
-                user.password = await bcrypt.hash(user.password, 10);
+                user.password = hashPassword(user.password);
             },
             beforeUpdate: async (user) => {
                 if (user.changed("password")) {
-                    user.password = await bcrypt.hash(user.password, 10);
+                    user.password = hashPassword(user.password);
                 }
             },
         },
@@ -95,6 +112,7 @@ User.init(
     }
 );
 
+export { UserAttributes, UserCreationAttributes };
 export default User;
 
 // const User = sequelize.define(

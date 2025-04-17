@@ -80,7 +80,7 @@ User.init(
         },
         isActive: {
             type: DataTypes.BOOLEAN,
-            defaultValue: true,
+            defaultValue: false,
             comment: "Флаг активности пользователя (false = деактивирован)",
         },
         lastLogin: {

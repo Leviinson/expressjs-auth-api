@@ -28,9 +28,9 @@ class UserRepo {
         });
     }
 
-    async create(userParams: UserCreationAttributes): Promise<void> {
+    async create(userParams: UserCreationAttributes): Promise<User> {
         try {
-            await User.create({ ...userParams });
+            return await User.create({ ...userParams });
         } catch (err) {
             console.error(err);
             throw err;

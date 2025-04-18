@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { body } from "express-validator";
+import { body, query } from "express-validator";
 
 import activateUserController from "@/controllers/auth/activateUser";
 import refreshJWToken from "@/controllers/auth/refreshToken";
@@ -21,7 +21,7 @@ authRouter.post(
     body("password").isStrongPassword({ minLength: 10 }),
     signUpController
 );
-authRouter.post("/activate", activateUserController);
+authRouter.get("/activate", query("token").isUUID(4), activateUserController);
 authRouter.post("/refreshToken", refreshJWToken);
 
 export default authRouter;

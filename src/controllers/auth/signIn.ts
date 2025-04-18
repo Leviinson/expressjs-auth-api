@@ -1,32 +1,10 @@
 import { Request, Response } from "express";
 import { validationResult } from "express-validator";
-import jwt from "jsonwebtoken";
 
-import { Payload } from "@/middlewares/auth/services/tokenValidation";
 import authenticate from "@/services/auth/authenticate";
 import login from "@/services/auth/login";
 
-type accessToken = string;
-type refreshToken = string;
-
-type JWTokens = { access: accessToken; refresh: refreshToken };
-
-function issueJWTokens(userId: number): JWTokens {
-    const payload: Payload = { id: userId };
-
-    const accessToken = jwt.sign(
-        payload,
-        process.env.ACCESS_TOKEN_SECRET_KEY!,
-        { expiresIn: "15m" }
-    );
-    const refreshToken = jwt.sign(
-        payload,
-        process.env.REFRESH_TOKEN_SECRET_KEY!,
-        { expiresIn: "7d" }
-    );
-
-    return { access: accessToken, refresh: refreshToken };
-}
+import { issueJWTokens } from "./services/jwt";
 
 async function signInController(req: Request, res: Response): Promise<void> {
     const errors = validationResult(req);
@@ -53,5 +31,4 @@ async function signInController(req: Request, res: Response): Promise<void> {
     }
 }
 
-export { issueJWTokens };
 export default signInController;

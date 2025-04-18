@@ -6,6 +6,7 @@ import express, { Request, Response, NextFunction } from "express";
 import createError from "http-errors";
 import logger from "morgan";
 
+import validationMiddleware from "./middlewares/validation";
 import authRouter from "./routes/auth";
 import userRouter from "./routes/user";
 
@@ -21,6 +22,7 @@ app.use(express.json());
 app.use(cookieParser(process.env.SECRET_KEY));
 
 // To connect routers
+app.use("/", validationMiddleware);
 app.use("/me", userRouter);
 app.use("/auth", authRouter);
 

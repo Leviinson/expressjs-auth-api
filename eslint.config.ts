@@ -10,7 +10,6 @@ export default defineConfig([
             "dist/**",
             "node_modules/**",
             "src/db/migrations/",
-            "tests/",
             "src/db/config.ts",
         ],
     },

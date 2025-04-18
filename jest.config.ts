@@ -4,14 +4,6 @@ import { compilerOptions } from "./tsconfig.json";
 
 import type { Config } from "jest";
 
-// export default {
-//     preset: "ts-jest",
-//     testEnvironment: "node",
-//     globalSetup: "./jest/globalSetup.ts",
-//     globalTeardown: "./jest/globalTeardown.ts",
-//     setupFilesAfterEnv: ["./jest/setupTests.ts"],
-// };
-
 const config: Config = {
     preset: "ts-jest",
     testEnvironment: "node",
@@ -21,6 +13,7 @@ const config: Config = {
     moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
         prefix: "<rootDir>/",
     }),
+    testPathIgnorePatterns: ["./dist"],
 };
 
 export default config;

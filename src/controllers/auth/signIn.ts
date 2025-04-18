@@ -17,7 +17,7 @@ async function signInController(req: Request, res: Response): Promise<void> {
         res.cookie("refresh", refresh, {
             httpOnly: true,
             signed: true,
-            secure: true,
+            secure: process.env.NODE_ENV === "production",
         });
         res.status(200).json({ access: access });
     } else {

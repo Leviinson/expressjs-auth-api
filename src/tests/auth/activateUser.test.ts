@@ -5,8 +5,7 @@ import app from "@/app";
 import { generateExpirationDate } from "@/controllers/auth/services/signUp";
 import ConfirmationTokenRepo from "@/db/models/repos/ConfirmationToken";
 import UserRepo from "@/db/models/repos/user";
-
-import createUserAndLogin from "../services/auth";
+import createUserAndLogin from "@/tests/services/auth";
 
 describe("GET /auth/activate?token=*", () => {
     it("has to activate an inactive user", async () => {

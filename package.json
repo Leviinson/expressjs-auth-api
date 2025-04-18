@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "dev": "DEBUG='express.js*' ts-node-dev --respawn --require tsconfig-paths/register src/bin/www.ts",
-        "test": "jest",
+        "test": "jest --detectOpenHandles",
         "lint": "eslint .",
         "lint:fix": "eslint . --fix --config eslint.config.ts"
     },
@@ -22,10 +22,11 @@
         "jsonwebtoken": "^9.0.2",
         "morgan": "~1.9.1",
         "mysql2": "^3.14.0",
-        "pug": "2.0.0-beta11",
         "nodemailer": "^6.10.1",
+        "pug": "2.0.0-beta11",
         "react": "^19.1.0",
-        "sequelize": "^6.37.7"
+        "sequelize": "^6.37.7",
+        "uuid": "^11.1.0"
     },
     "devDependencies": {
         "@eslint/js": "^9.24.0",

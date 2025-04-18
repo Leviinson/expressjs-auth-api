@@ -14,7 +14,13 @@ authRouter.post(
     body("password").isString().isLength({ min: 10 }),
     signInController
 );
-authRouter.post("/signup", signUpController);
+authRouter.post(
+    "/signup",
+    body("username").isString().notEmpty().isLength({ min: 5, max: 50 }),
+    body("email").isEmail(),
+    body("password").isStrongPassword({ minLength: 10 }),
+    signUpController
+);
 authRouter.post("/activate", activateUserController);
 authRouter.post("/refreshToken", refreshJWToken);
 

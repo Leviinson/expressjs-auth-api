@@ -4,10 +4,9 @@ import ConfirmationToken from "@/db/models/ConfirmationToken";
 import ConfirmationTokenRepo from "@/db/models/repos/ConfirmationToken";
 
 async function confirmationTokenIsExp(confirmationToken: ConfirmationToken) {
-    if (confirmationToken && confirmationToken.expAt >= new Date()) {
-        return false;
-    }
-    return true;
+    return confirmationToken && confirmationToken.expAt >= new Date()
+        ? false
+        : true;
 }
 
 function parseConfirmationTokenValue(req: Request): string | null {

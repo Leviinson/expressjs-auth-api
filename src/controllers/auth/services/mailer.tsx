@@ -5,10 +5,15 @@ import ConfirmEmail from "@/controllers/auth/templates/confirmEmail";
 
 export default async function sendConfirmationEmail(
     email: string,
-    username: string
+    username: string,
+    tokenValue: string
 ): Promise<void> {
     const html = await render(
-        <ConfirmEmail url="http://localhost:3000/me" username={username} />
+        <ConfirmEmail
+            url="http://localhost:3000/me"
+            username={username}
+            token={tokenValue}
+        />
     );
 
     const transporter = createTransport({

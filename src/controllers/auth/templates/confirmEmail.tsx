@@ -19,9 +19,10 @@ import { render } from "@react-email/render";
 type ConfirmEmailProps = {
     url: string;
     username?: string;
+    token: string;
 };
 
-export const ConfirmEmail = ({ url, username }: ConfirmEmailProps) => {
+export const ConfirmEmail = ({ url, username, token }: ConfirmEmailProps) => {
     const colorsScheme = {
         primary: "#4F46E5",
         text: "#000",
@@ -147,7 +148,7 @@ export const ConfirmEmail = ({ url, username }: ConfirmEmailProps) => {
                             the button below:
                         </Text>
                         <Button
-                            href="#"
+                            href={`http://localhost:3000/auth/activate?token=${token}`}
                             style={{
                                 backgroundColor: colorsScheme.primary,
                                 color: colorsScheme.white,

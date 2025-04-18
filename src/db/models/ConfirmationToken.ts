@@ -29,6 +29,7 @@ class ConfirmationToken
     public userId!: number;
     public expAt!: Date;
     public value!: string;
+    public user!: User;
     public createdAt!: Date;
     public updatedAt!: Date;
 }

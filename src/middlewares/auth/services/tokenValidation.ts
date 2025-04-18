@@ -29,23 +29,25 @@ async function isTokenValid(
 ): Promise<boolean> {
     const authHeader = headers.authorization;
 
-    if (authHeader && authHeader.startsWith("Bearer ")) {
-        const givenAccessToken: string = authHeader.slice(7);
-        try {
-            const payload = jwt.verify(
-                givenAccessToken,
-                process.env.ACCESS_TOKEN_SECRET_KEY!
-            ) as Payload;
-            res.locals.userId = payload.id;
-            return true;
-        } catch (err) {
-            res.locals.userId = null;
-            console.log(err);
-            return false;
-        }
+    if (!(authHeader && authHeader.startsWith("Bearer "))) {
+        res.locals.userId = null;
+        return false;
     }
-    res.locals.userId = null;
-    return false;
+
+    const givenAccessToken: string = authHeader.slice(7);
+    try {
+        const payload = jwt.verify(
+            givenAccessToken,
+            process.env.ACCESS_TOKEN_SECRET_KEY!
+        ) as Payload;
+
+        res.locals.userId = payload.id;
+        return true;
+    } catch (err) {
+        res.locals.userId = null;
+        console.log(err);
+        return false;
+    }
 }
 
 export { Payload };

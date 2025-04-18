@@ -15,9 +15,9 @@ describe("POST /auth/signup", () => {
         };
         const response = await request(app).post("/auth/signup").send(userData);
         const confirmationToken =
-            await new ConfirmationTokenRepo().getTokenByUserId(
-                response.body.id
-            );
+            await new ConfirmationTokenRepo().getTokenByUserId({
+                userId: response.body.id,
+            });
         expect(confirmationToken).not.toBeNull();
         expect(response.status).toStrictEqual(201);
         expect(sendConfirmationEmail).toHaveBeenCalledWith(

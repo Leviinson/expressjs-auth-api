@@ -85,7 +85,6 @@ User.init(
         },
         lastLogin: {
             type: DataTypes.DATE,
-            allowNull: true,
             comment: "Последний вход пользователя в систему",
         },
     },

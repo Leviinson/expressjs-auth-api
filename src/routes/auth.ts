@@ -22,6 +22,6 @@ authRouter.post(
     signUpController
 );
 authRouter.get("/activate", query("token").isUUID(4), activateUserController);
-authRouter.post("/refreshToken", refreshJWToken);
+authRouter.post("/refresh", refreshJWToken);
 
 export default authRouter;

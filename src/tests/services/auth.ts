@@ -12,8 +12,7 @@ async function createUserAndLogin(userDataOverride = {}) {
     };
 
     const userRepo = new UserRepo();
-    await userRepo.create({ ...userData });
-    const user = await userRepo.getUserByUsername(userData.username);
+    const user = await userRepo.create({ ...userData });
 
     const signInRes = await request(app)
         .post("/auth/signin")

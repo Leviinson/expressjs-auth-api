@@ -10,45 +10,63 @@ async function confirmationTokenIsExp(confirmationToken: ConfirmationToken) {
     return true;
 }
 
+function parseConfirmationTokenValue(req: Request): string | null {
+    return typeof req.query.token === "string" ? req.query.token : null;
+}
+
+async function getConfirmationToken(confirmationTokenValue: string) {
+    return await new ConfirmationTokenRepo().getTokenByValue({
+        tokenValue: confirmationTokenValue,
+        includesUser: true,
+    });
+}
+
+async function activateUser(
+    confirmationToken: ConfirmationToken
+): Promise<void> {
+    confirmationToken.user.isActive = true;
+    await confirmationToken.user.save({ fields: ["isActive"] });
+}
+
 async function activateUserController(
     req: Request,
     res: Response
 ): Promise<void> {
-    const confirmationTokenValue =
-        typeof req.query.token === "string" ? req.query.token : null;
+    const confirmationTokenValue = parseConfirmationTokenValue(req);
 
-    if (confirmationTokenValue) {
-        const confirmationToken =
-            await new ConfirmationTokenRepo().getTokenByValue({
-                tokenValue: confirmationTokenValue,
-                includesUser: true,
-            });
-        if (confirmationToken) {
-            if (!(await confirmationTokenIsExp(confirmationToken))) {
-                confirmationToken.user.isActive = true;
-                confirmationToken.user.save({ fields: ["isActive"] });
-                res.status(200).json({
-                    status: "success",
-                    message: "User was successfully activated.",
-                });
-            } else {
-                res.status(404).json({
-                    status: "error",
-                    message: "Confirmation token not found.",
-                });
-            }
-        } else {
-            res.status(400).json({
-                status: "error",
-                message: "Confirmation token is expired.",
-            });
-        }
-    } else {
+    if (!confirmationTokenValue) {
         res.status(400).json({
             status: "error",
             message: "Invalid token.",
         });
+        return;
     }
+
+    const confirmationToken = await getConfirmationToken(
+        confirmationTokenValue
+    );
+
+    if (!confirmationToken) {
+        res.status(404).json({
+            status: "error",
+            message: "Confirmation token not found.",
+        });
+        return;
+    }
+
+    if (await confirmationTokenIsExp(confirmationToken)) {
+        res.status(400).json({
+            status: "error",
+            message: "Confirmation token is expired.",
+        });
+        return;
+    }
+
+    await activateUser(confirmationToken);
+    res.status(200).json({
+        status: "success",
+        message: "User was successfully activated.",
+    });
 }
 
 export default activateUserController;

@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 
+import AnonymousUser from "@/db/models/AnonymousUser";
 import UserRepo from "@/db/models/repos/user";
 
 /**
@@ -20,6 +21,7 @@ async function loadUserMiddleware(
         res.locals.user = user;
         next();
     } else {
+        res.locals.user = new AnonymousUser();
         res.status(401).json({ message: "User not found" });
     }
 }

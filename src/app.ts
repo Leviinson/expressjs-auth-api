@@ -32,7 +32,7 @@ app.use(
     helmet({
         contentSecurityPolicy: {
             directives: {
-                "font-src": ["self", "https:"],
+                "font-src": ["'self'", "https:"],
             },
         },
         crossOriginResourcePolicy: { policy: "cross-origin"}

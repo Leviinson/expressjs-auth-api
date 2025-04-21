@@ -1,4 +1,5 @@
 import User, { UserAttributes, UserCreationAttributes } from "@/db/models/User";
+import logger from "@/services/log";
 
 // type UpdateUserPasswordById = { id: number; user?: never };
 // type UpdateUserPasswordByUser = { user: User; id?: never };
@@ -32,7 +33,7 @@ class UserRepo {
         try {
             return await User.create({ ...userParams });
         } catch (err) {
-            console.error(err);
+            logger.error(err);
             throw err;
         }
     }

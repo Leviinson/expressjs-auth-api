@@ -5,6 +5,7 @@ import debug from "debug";
 
 import app from "@/app";
 import { connectToDb } from "@/db/cursor";
+import logger from "@/services/log";
 
 const debugLogger = debug("express.js:server");
 
@@ -51,11 +52,11 @@ function onError(error: NodeJS.ErrnoException): void {
 
     switch (error.code) {
         case "EACCES":
-            console.error(bind + " requires elevated privileges");
+            logger.error(bind + " requires elevated privileges");
             process.exit(1);
             break;
         case "EADDRINUSE":
-            console.error(bind + " is already in use");
+            logger.error(bind + " is already in use");
             process.exit(1);
             break;
         default:

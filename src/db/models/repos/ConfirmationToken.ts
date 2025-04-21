@@ -1,3 +1,5 @@
+import logger from "@/services/log";
+
 import ConfirmationToken, {
     ConfirmationTokenAttributes,
     ConfirmationTokenCreationAttributes,
@@ -62,7 +64,7 @@ class ConfirmationTokenRepo {
         try {
             return await ConfirmationToken.create({ ...attributes });
         } catch (err) {
-            console.error(err);
+            logger.error(err);
             throw err;
         }
     }

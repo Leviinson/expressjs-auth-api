@@ -45,7 +45,6 @@ async function isTokenValid(
         return true;
     } catch (err) {
         res.locals.userId = null;
-        console.log(err);
         return false;
     }
 }

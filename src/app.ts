@@ -1,8 +1,11 @@
 import path from "path";
 
+import compression from "compression";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 import dotenv from "dotenv";
 import express, { Request, Response, NextFunction } from "express";
+import helmet from "helmet";
 import createError from "http-errors";
 import logger from "morgan";
 
@@ -18,6 +21,31 @@ app.set("views", path.join(__dirname, "./views"));
 
 // To connect middlewares
 app.use(logger("dev"));
+app.use(
+    cors({
+        origin: process.env
+            .CORS_ORIGINS!.split(",")
+            .map((origin) => origin.trim()),
+    })
+);
+app.use(
+    helmet({
+        contentSecurityPolicy: {
+            directives: {
+                "font-src": ["self", "https:"],
+            },
+        },
+        crossOriginResourcePolicy: { policy: "cross-origin"}
+    })
+);
+/**
+ * CSRF tokens will be generated
+ * usign mask, that is always random.
+ *
+ * Because of this this API will be defended
+ * from BREACH attacks.
+ */
+app.use(compression());
 app.use(express.json());
 app.use(cookieParser(process.env.SECRET_KEY));
 

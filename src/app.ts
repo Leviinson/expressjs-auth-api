@@ -9,6 +9,7 @@ import helmet from "helmet";
 import createError from "http-errors";
 import logger from "morgan";
 
+import csrfMiddleware from "./middlewares/csrf";
 import validationMiddleware from "./middlewares/validation";
 import authRouter from "./routes/auth";
 import userRouter from "./routes/user";
@@ -35,7 +36,7 @@ app.use(
                 "font-src": ["'self'", "https:"],
             },
         },
-        crossOriginResourcePolicy: { policy: "cross-origin"}
+        crossOriginResourcePolicy: { policy: "cross-origin" },
     })
 );
 /**
@@ -51,6 +52,7 @@ app.use(cookieParser(process.env.SECRET_KEY));
 
 // To connect routers
 app.use("/", validationMiddleware);
+app.use("/", csrfMiddleware);
 app.use("/me", userRouter);
 app.use("/auth", authRouter);
 

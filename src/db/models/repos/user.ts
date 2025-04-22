@@ -1,6 +1,7 @@
+import { Op } from "sequelize";
+
 import User, { UserAttributes, UserCreationAttributes } from "@/db/models/User";
 import logger from "@/services/log";
-import { Op } from "sequelize";
 
 // type UpdateUserPasswordById = { id: number; user?: never };
 // type UpdateUserPasswordByUser = { user: User; id?: never };

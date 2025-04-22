@@ -5,7 +5,7 @@
     "scripts": {
         "build": "tsc && tsc-alias",
         "start": "node dist/bin/www.js",
-        "dev": "DEBUG='express.js*' ts-node-dev --respawn --require tsconfig-paths/register src/bin/www.ts",
+        "dev": "DEBUG='express.js*' ts-node-dev --respawn --require tsconfig-paths/register --transpile-only --exit-child src/bin/www.ts",
         "test": "jest --detectOpenHandles",
         "lint": "eslint .",
         "lint:fix": "eslint . --fix --config eslint.config.ts"
@@ -13,13 +13,17 @@
     "dependencies": {
         "@react-email/components": "^0.0.36",
         "@react-email/render": "^1.0.6",
+        "@types/cors": "^2.8.17",
         "@types/jsonwebtoken": "^9.0.9",
         "bcrypt": "^5.1.1",
+        "compression": "^1.8.0",
         "cookie-parser": "~1.4.7",
+        "cors": "^2.8.5",
         "debug": "~2.6.9",
         "dotenv": "^16.5.0",
         "express": "~4.16.4",
         "express-validator": "^7.2.1",
+        "helmet": "^8.1.0",
         "http-errors": "~1.6.3",
         "jsonwebtoken": "^9.0.2",
         "morgan": "~1.9.1",
@@ -28,11 +32,13 @@
         "pug": "2.0.0-beta11",
         "react": "^19.1.0",
         "sequelize": "^6.37.7",
-        "uuid": "^11.1.0"
+        "uuid": "^11.1.0",
+        "winston": "^3.17.0"
     },
     "devDependencies": {
         "@eslint/js": "^9.24.0",
         "@types/bcrypt": "^5.0.2",
+        "@types/compression": "^1.7.5",
         "@types/cookie-parser": "^1.4.8",
         "@types/debug": "^4.1.12",
         "@types/express": "^5.0.1",

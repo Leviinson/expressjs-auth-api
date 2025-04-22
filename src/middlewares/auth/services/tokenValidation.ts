@@ -43,9 +43,8 @@ async function isTokenValid(
 
         res.locals.userId = payload.id;
         return true;
-    } catch (err) {
+    } catch {
         res.locals.userId = null;
-        console.log(err);
         return false;
     }
 }

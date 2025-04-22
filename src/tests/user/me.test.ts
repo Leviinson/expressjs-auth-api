@@ -1,6 +1,7 @@
 import request from "supertest";
 
 import app from "@/app";
+import logger from "@/services/log";
 
 import createUserAndLogin from "../services/auth";
 
@@ -27,7 +28,7 @@ describe("GET /", () => {
 
             expect(userProfileRes.status).toStrictEqual(401);
         } catch (err) {
-            console.error(err);
+            logger.error(err);
             throw err;
         }
     });

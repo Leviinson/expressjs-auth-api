@@ -40,6 +40,9 @@ jobs:
               with:
                   node-version: 23.6.0
                   cache: "pnpm"
+            
+            - name: Build the project
+              run: pnpm build
 
             - name: 🚀 Run tests
               run: pnpm test

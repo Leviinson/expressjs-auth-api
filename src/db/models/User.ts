@@ -31,15 +31,15 @@ class User
     extends Model<UserAttributes, UserCreationAttributes>
     implements UserAttributes
 {
-    public id!: number;
-    public username!: string;
-    public email!: string;
-    public password!: string;
-    public isActive!: boolean;
-    public lastLogin!: Date | null;
-    public createdAt!: Date;
-    public updatedAt!: Date;
-    public deletedAt!: Date | null;
+    declare id: number;
+    declare username: string;
+    declare email: string;
+    declare password: string;
+    declare isActive: boolean;
+    declare lastLogin: Date | null;
+    declare createdAt: Date;
+    declare updatedAt: Date;
+    declare deletedAt: Date | null;
 
     get isAuthenticated() {
         return true;

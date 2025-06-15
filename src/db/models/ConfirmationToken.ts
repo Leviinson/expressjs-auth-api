@@ -25,13 +25,13 @@ class ConfirmationToken
     >
     implements ConfirmationTokenAttributes
 {
-    public id!: number;
-    public userId!: number;
-    public expAt!: Date;
-    public value!: string;
-    public user!: User;
-    public createdAt!: Date;
-    public updatedAt!: Date;
+    declare id: number;
+    declare userId: number;
+    declare expAt: Date;
+    declare value: string;
+    declare user: User;
+    declare createdAt: Date;
+    declare updatedAt: Date;
 }
 
 ConfirmationToken.init(

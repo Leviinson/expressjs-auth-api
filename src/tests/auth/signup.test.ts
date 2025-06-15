@@ -23,8 +23,8 @@ describe("POST /auth/signup", () => {
             .send({ ...userData, csrftoken: csrfToken });
 
         const confirmationToken =
-            await new ConfirmationTokenRepo().getTokenByUserId({
-                userId: response.body.id,
+            await new ConfirmationTokenRepo().getTokenByUsername({
+                username: userData.username,
             });
         expect(confirmationToken).not.toBeNull();
         expect(response.status).toStrictEqual(201);

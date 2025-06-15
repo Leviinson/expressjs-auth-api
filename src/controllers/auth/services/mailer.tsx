@@ -9,22 +9,18 @@ export default async function sendConfirmationEmail(
     tokenValue: string
 ): Promise<void> {
     const html = await render(
-        <ConfirmEmail
-            url="http://localhost:3000/me"
-            username={username}
-            token={tokenValue}
-        />
+        <ConfirmEmail username={username} token={tokenValue} />
     );
 
     const transporter = createTransport({
-        service: "gmail",
-        host: "smtp.gmail.com",
-        port: 587,
+        service: process.env.TRANSPORTER_SERVICE,
+        host: process.env.TRANSPORTER_HOST,
+        port: parseInt(process.env.TRANSPORTER_PORT!),
         requireTLS: true,
-        secure: false,
+        secure: process.env.NODE_ENV === "production",
         auth: {
-            user: "melnykov.vitalii197@gmail.com",
-            pass: "lmtzqminxqamachn",
+            user: process.env.TRANSPORTER_USER,
+            pass: process.env.TRANSPORTER_PASS,
         },
     });
 

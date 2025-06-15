@@ -3,6 +3,16 @@ import { IncomingHttpHeaders } from "http";
 import { Response } from "express";
 import jwt from "jsonwebtoken";
 
+
+function extractJWTTokenFromHeader(authHeader: string, res: Response) {
+    if (!(authHeader && authHeader.startsWith("Bearer "))) {
+        res.locals.userId = null;
+        return;
+    }
+
+    return authHeader.split(" ")[1];
+}
+
 type Payload = {
     id: number;
 };
@@ -28,13 +38,16 @@ async function isTokenValid(
     res: Response
 ): Promise<boolean> {
     const authHeader = headers.authorization;
+    if (!authHeader) {
+        return false;
+    };
 
-    if (!(authHeader && authHeader.startsWith("Bearer "))) {
-        res.locals.userId = null;
+    const givenAccessToken = extractJWTTokenFromHeader(authHeader, res)
+
+    if (!givenAccessToken) {
         return false;
     }
-
-    const givenAccessToken: string = authHeader.slice(7);
+    
     try {
         const payload = jwt.verify(
             givenAccessToken,

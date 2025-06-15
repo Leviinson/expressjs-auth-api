@@ -12,18 +12,11 @@ async function signInController(req: Request, res: Response): Promise<void> {
     });
 
     if (user) {
-        await login(user);
         const { access, refresh } = issueJWTokens(user.id);
-        res.cookie("refresh", refresh, {
-            httpOnly: true,
-            signed: true,
-            secure: process.env.NODE_ENV === "production",
-            expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-            sameSite: "strict",
-        });
+        await login(user, res, refresh);
         res.status(200).json({
             status: "success",
-            message: "Access token successfully issues",
+            message: "Access token successfully issued",
             access: access,
         });
     } else {

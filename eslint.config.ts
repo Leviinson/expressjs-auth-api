@@ -3,6 +3,7 @@ import typescript from "@typescript-eslint/eslint-plugin";
 import typescriptParser from "@typescript-eslint/parser";
 import { defineConfig } from "eslint/config";
 import importPlugin from "eslint-plugin-import";
+import globals from "globals";
 
 export default defineConfig([
     {
@@ -75,7 +76,10 @@ export default defineConfig([
         },
         languageOptions: {
             ecmaVersion: 2022,
-            sourceType: "module",
+            sourceType: "commonjs",
+            globals: {
+                ...globals.node,
+            },
         },
         rules: {
             "import/order": [

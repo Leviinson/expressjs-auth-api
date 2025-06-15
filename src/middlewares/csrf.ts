@@ -28,12 +28,9 @@ function generateCsrfToken(): string {
 
 async function csrfMiddleware(req: Request, res: Response, next: NextFunction) {
     const cookieCSRFToken = req.cookies.csrftoken;
-    const bodyCSRFToken = req.body.csrftoken;
     const reqMethod = req.method;
-
     if (reqMethod == "GET") {
         if (cookieCSRFToken) {
-            next();
             return;
         } else {
             res.cookie("csrftoken", generateCsrfToken(), {
@@ -45,6 +42,8 @@ async function csrfMiddleware(req: Request, res: Response, next: NextFunction) {
     }
 
     if (reqMethod == "POST") {
+        const bodyCSRFToken = req.body.csrftoken;
+
         if (cookieCSRFToken && bodyCSRFToken) {
             if (cookieCSRFToken === bodyCSRFToken) {
                 next();

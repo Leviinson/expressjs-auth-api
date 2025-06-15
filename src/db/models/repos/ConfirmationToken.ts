@@ -18,8 +18,8 @@ interface GetTokenByValueParams {
     includesUser?: boolean;
 }
 
-interface GetTokenByUserIdParams {
-    userId: number;
+interface GetTokenByUsernameParams {
+    username: string;
     attributes?: (keyof ConfirmationTokenAttributes)[];
 }
 
@@ -48,13 +48,20 @@ class ConfirmationTokenRepo {
         });
     }
 
-    async getTokenByUserId({
-        userId,
+    async getTokenByUsername({
+        username,
         attributes,
-    }: GetTokenByUserIdParams): Promise<ConfirmationToken | null> {
+    }: GetTokenByUsernameParams): Promise<ConfirmationToken | null> {
         return await ConfirmationToken.findOne({
-            where: { userId },
             attributes: attributes,
+            include: [
+                {
+                    model: User,
+                    as: "user",
+                    where: { username },
+                    attributes: [],
+                },
+            ],
         });
     }
 

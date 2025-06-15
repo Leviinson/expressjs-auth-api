@@ -36,8 +36,7 @@ async function signUpController(req: Request, res: Response): Promise<void> {
         await transaction.commit();
         res.status(201).json({
             status: "success",
-            message:
-                "Confirmation email successfully sent. Inactive user created.",
+            message: "Confirmation email successfully sent. Inactive user created.",
         });
     } catch (err) {
         await transaction.rollback();

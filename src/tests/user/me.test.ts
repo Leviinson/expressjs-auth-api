@@ -45,8 +45,12 @@ describe("GET /", () => {
 
         expect(userProfileRes.status).toStrictEqual(200);
         expect(userProfileRes.body).toMatchObject({
-            username: user!.username,
-            email: user!.email,
+            message: "User was found",
+            status: "success",
+            user: {
+                email: user.email,
+                username: user.username,
+            },
         });
     });
 });

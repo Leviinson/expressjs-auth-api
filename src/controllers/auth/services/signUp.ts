@@ -1,7 +1,7 @@
+import { v4 as uuidv4 } from "uuid";
+
 import ConfirmationTokenRepo from "@/db/models/repos/ConfirmationToken";
 import UserRepo from "@/db/models/repos/user";
-import sequelize from "@/db/models/init";
-import { v4 as uuidv4 } from "uuid";
 
 export function generateExpirationDate(currentDate: Date): Date {
     currentDate.setHours(currentDate.getHours() + 24);

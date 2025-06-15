@@ -6,7 +6,6 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express, { Request, Response, NextFunction } from "express";
 import helmet from "helmet";
-import createError from "http-errors";
 import logger from "morgan";
 
 import csrfMiddleware from "./middlewares/csrf";
@@ -51,14 +50,9 @@ app.use(express.json());
 app.use(cookieParser(process.env.SECRET_KEY));
 
 // To connect routers
-app.use("/", validationMiddleware);
-app.use("/", csrfMiddleware);
+app.use("/", validationMiddleware, csrfMiddleware);
 app.use("/me", userRouter);
 app.use("/auth", authRouter);
-
-app.use(function (_req: Request, _res: Response, next: NextFunction) {
-    next(createError(404));
-});
 
 app.use(function (
     err: { message: string; status: number },

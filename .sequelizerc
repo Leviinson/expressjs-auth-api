@@ -1,8 +1,7 @@
 const path = require("path");
 
 module.exports = {
-    config: path.resolve("src", "db", "config.js"),
-    // original models are located in src/db/models/
+    config: path.resolve("dist", "db", "config.js"),
     "models-path": path.resolve("dist", "db", "models"),
     "seeders-path": path.resolve("src", "db", "seeds"),
     "migrations-path": path.resolve("src", "db", "migrations"),

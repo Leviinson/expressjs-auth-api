@@ -24,7 +24,7 @@ export default defineConfig([
         languageOptions: {
             parser: typescriptParser,
             parserOptions: {
-                ecmaVersion: 2022,
+                ecmaVersion: 2024,
                 sourceType: "module",
             },
         },
@@ -75,7 +75,7 @@ export default defineConfig([
             import: importPlugin,
         },
         languageOptions: {
-            ecmaVersion: 2022,
+            ecmaVersion: 2024,
             sourceType: "commonjs",
             globals: {
                 ...globals.node,

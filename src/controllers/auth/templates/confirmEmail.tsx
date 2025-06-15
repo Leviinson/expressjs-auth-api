@@ -14,15 +14,13 @@ import {
     Font,
     Container,
 } from "@react-email/components";
-import { render } from "@react-email/render";
 
 type ConfirmEmailProps = {
-    url: string;
     username?: string;
     token: string;
 };
 
-export const ConfirmEmail = ({ url, username, token }: ConfirmEmailProps) => {
+export const ConfirmEmail = ({ username, token }: ConfirmEmailProps) => {
     const colorsScheme = {
         primary: "#4F46E5",
         text: "#000",

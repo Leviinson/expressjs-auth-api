@@ -9,6 +9,7 @@ async function toBeActiveMiddleware(
         next();
     } else {
         res.status(401).json({
+            status: "error",
             message:
                 "User isn't activated. Please, follow a link that we sent to your email.",
         });

@@ -15,14 +15,14 @@ async function loadUserMiddleware(
     res: Response,
     next: NextFunction
 ): Promise<void> {
-    const userId = res.locals.userId;
+    const userId: number = res.locals.userId;
     const user = await new UserRepo().getUserById(userId);
     if (user) {
         res.locals.user = user;
         next();
     } else {
         res.locals.user = new AnonymousUser();
-        res.status(401).json({ message: "User not found" });
+        res.status(401).json({ status: "error", message: "User wasn't found" });
     }
 }
 

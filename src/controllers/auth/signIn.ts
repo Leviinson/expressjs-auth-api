@@ -21,9 +21,16 @@ async function signInController(req: Request, res: Response): Promise<void> {
             expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
             sameSite: "strict",
         });
-        res.status(200).json({ access: access });
+        res.status(200).json({
+            status: "success",
+            message: "Access token successfully issues",
+            access: access,
+        });
     } else {
-        res.status(401).json({ message: "Invalid credentials" });
+        res.status(401).json({
+            message: "Invalid credentials",
+            status: "error",
+        });
     }
 }
 

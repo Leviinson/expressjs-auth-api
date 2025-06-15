@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-import { Payload } from "@/middlewares/auth/services/tokenValidation";
+import { Payload } from "@/middlewares/services/tokenValidation";
 
 type accessToken = string;
 type refreshToken = string;

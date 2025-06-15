@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 
-import isTokenValid from "./services/tokenValidation";
+import isTokenValid from "../services/tokenValidation";
 
 /**
  * This middleware assignes user id
@@ -20,6 +20,7 @@ async function requireAuthMiddleware(
         next();
     } else {
         res.status(401).json({
+            status: "error",
             message: "Unauthorized or broken credentials",
         });
     }
